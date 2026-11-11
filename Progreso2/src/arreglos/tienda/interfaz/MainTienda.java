@@ -18,27 +18,27 @@ public class MainTienda {
             menu();
             opc = Integer.parseInt(sc.nextLine());
             switch (opc){
-                case 1:{
+                case 1:
                     ingresarJuego();
-                }break;
-                case 2:{
+                break;
+                case 2:
                     imprimirJuegos();
-                }break;
-                case 3:{
+                break;
+                case 3:
 
-                }break;
-                case 4:{
+                break;
+                case 4:
 
-                }break;
-                case 5:{
+                break;
+                case 5:
                         vender();
-                }break;
-                case 6:{
+                break;
+                case 6:
 
-                }break;
-                case 7:{
+                break;
+                case 7:
 
-                }break;
+                break;
                 default:
                     System.out.println("Opción no válida");
             }
@@ -55,20 +55,28 @@ public class MainTienda {
         System.out.println("7. Salir");
         System.out.print("Ingrese una opcion: ");
     }
-    public static void ingresarJuego(){
-        System.out.println("*******Ingreso de datos********");
-        String nombre = Validacion.leerString("Ingrese el nombre, no puede ser nulo ni blanco");
-        String categoria = Validacion.leerString("Ingrese la categoria, no puede ser nulo ni blanco");
-        System.out.print("Ingrese el tamanio: ");
-        int tamanio = Integer.parseInt(sc.nextLine());
-        System.out.print("Ingrese el precio: ");
-        double precio = Double.parseDouble(sc.nextLine());
-        System.out.print("Ingrese el stock inicial: ");
-        int licenciasDisponibles = Integer.parseInt(sc.nextLine());
-        if(tienda.agregarJuego(new Juego(nombre,categoria,tamanio,precio,licenciasDisponibles))){
-            JOptionPane.showMessageDialog(null,"Juego ingresado con éxito");
-        }else{
-            JOptionPane.showMessageDialog(null,"No fue posible agregar el juego");
+    public static void ingresarJuego() {
+
+        System.out.println("*******Ingreso de datos*******");
+
+        String nombre = Validacion.leerString("Ingrese el nombre");
+
+        String categoria = Validacion.leerString("Ingrese la categoria");
+
+        int tamanio = Validacion.leerEnteroPositivo("Ingrese el tamanio");
+
+        double precio = Validacion.leerDoublePositivo("Ingrese el precio");
+
+        int licenciasDisponibles = Validacion.leerEnteroPositivo(
+                "Ingrese el stock inicial");
+
+        if (tienda.agregarJuego(new Juego(nombre, categoria, tamanio,
+                precio, licenciasDisponibles))) {
+
+            JOptionPane.showMessageDialog(null, "Juego ingresado con éxito");
+
+        } else {
+            JOptionPane.showMessageDialog(null, "No fue posible agregar el juego");
         }
     }
 
