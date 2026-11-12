@@ -25,19 +25,19 @@ public class MainTienda {
                     imprimirJuegos();
                 break;
                 case 3:
-
+                    buscarJuego();
                 break;
                 case 4:
-
+                    comprar();
                 break;
                 case 5:
-                        vender();
+                    vender();
                 break;
                 case 6:
-
+                    mostrarJuegoMasVendido();
                 break;
                 case 7:
-
+                    System.out.println("Saliendo");
                 break;
                 default:
                     System.out.println("Opción no válida");
@@ -56,25 +56,15 @@ public class MainTienda {
         System.out.print("Ingrese una opcion: ");
     }
     public static void ingresarJuego() {
-
         System.out.println("*******Ingreso de datos*******");
-
         String nombre = Validacion.leerString("Ingrese el nombre");
-
         String categoria = Validacion.leerString("Ingrese la categoria");
-
         int tamanio = Validacion.leerEnteroPositivo("Ingrese el tamanio");
-
         double precio = Validacion.leerDoublePositivo("Ingrese el precio");
+        int licenciasDisponibles = Validacion.leerEnteroPositivo("Ingrese el stock inicial");
 
-        int licenciasDisponibles = Validacion.leerEnteroPositivo(
-                "Ingrese el stock inicial");
-
-        if (tienda.agregarJuego(new Juego(nombre, categoria, tamanio,
-                precio, licenciasDisponibles))) {
-
+        if (tienda.agregarJuego(new Juego(nombre, categoria, tamanio, precio, licenciasDisponibles))) {
             JOptionPane.showMessageDialog(null, "Juego ingresado con éxito");
-
         } else {
             JOptionPane.showMessageDialog(null, "No fue posible agregar el juego");
         }
@@ -105,5 +95,42 @@ public class MainTienda {
         }
     }
 
+    public static void comprar(){
+        System.out.println("********* COMPRAR JUEGO *********");
+        String nombre = Validacion.leerString("Ingrese el Nombre (No vacío ni nulo): ");
+        Juego j = tienda.buscarJuego(nombre);
+        if (j == null) {
+            JOptionPane.showMessageDialog(null, "No se encontró el juego: " + nombre);
+            return;
+        }
+        int cantidad = Validacion.leerEnteroPositivo("Ingrese la cantidad a comprar: ");
+        if(tienda.comprar(nombre, cantidad)){
+            JOptionPane.showMessageDialog(null, "Usted ha comprado " + cantidad + " licencias del juego " + nombre);
+        }else{
+            JOptionPane.showMessageDialog(null, "No fue posible realizar la compra.");
+        }
+
+    }
+
+    public static void mostrarJuegoMasVendido() {
+        String juegoMasVendido = tienda.juegoMasVendido();
+        if(!juegoMasVendido.equals("")){
+            JOptionPane.showMessageDialog(null, "El juego mas vendido es: " + juegoMasVendido);
+        }else{
+            JOptionPane.showMessageDialog(null, "No hay elementos.");
+
+        }
+
+    }
+
+    public static void buscarJuego(){
+        String nombreBuscado = Validacion.leerString("Ingrese el Nombre (No vacío ni nulo): ");
+        Juego j = tienda.buscarJuego(nombreBuscado);
+        if(j != null){
+            System.out.println(j);
+        }else{
+            System.out.println("No se encontró el juego");
+        }
+    }
 
 }
